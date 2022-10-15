@@ -1,4 +1,3 @@
-
 /*
 Turn a string of 24h time into words.
 
@@ -95,29 +94,31 @@ let num = [
 function timeWord(time) {
   let h = parseInt(time.split(":")[0]);
   let m = parseInt(time.split(":")[1]);
+  let h1 = time.split(":")[0];
+  let m1 = time.split(":")[1];
   let pm_am = h >= 12 ? "pm" : "am";
 
-  if (h === 00 && m === 00) {
+  if (h1 === "00" && m1 === "00") {
     console.log("midnight");
     return "midnight";
   }
-  if (h === 12 && m === 00) {
+  if (h1 === "12" && m1 === "00") {
     console.log("noon");
     return "noon";
   }
-  if (h === 00) {
+  if (h1 === "00") {
     console.log(`twelve ${num[m]} ${pm_am}`);
     return `twelve ${num[m]} ${pm_am}`;
   }
-  if (m === 00) {
+  if (m1 === "00") {
     console.log(`${num[h]} o'clock ${pm_am}`);
     return `${num[h]} o'clock ${pm_am}`;
   }
-  if (m === 01) {
+  if (m1 === "01") {
     console.log(`${num[h]} oh one ${pm_am}`);
     return `${num[h]} oh one ${pm_am}`;
   }
-  if (m === 09) {
+  if (m1 === "09") {
     console.log(`${num[h]} oh nine ${pm_am}`);
     return `${num[h]} oh nine ${pm_am}`;
   }

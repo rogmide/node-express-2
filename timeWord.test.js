@@ -2,7 +2,7 @@ const timeWord = require("./timeWord");
 
 describe("#timeword", () => {
   test("it is a function", () => {
-    expect(timeWord).toBe("function");
+    expect(typeof timeWord).toBe('function');
   });
   test("Case#1", () => {
     expect(timeWord("00:00")).toEqual("midnight");
