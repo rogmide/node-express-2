@@ -99,44 +99,25 @@ function timeWord(time) {
   let pm_am = h >= 12 ? "pm" : "am";
 
   if (h1 === "00" && m1 === "00") {
-    console.log("midnight");
     return "midnight";
   }
   if (h1 === "12" && m1 === "00") {
-    console.log("noon");
     return "noon";
   }
   if (h1 === "00") {
-    console.log(`twelve ${num[m]} ${pm_am}`);
     return `twelve ${num[m]} ${pm_am}`;
   }
   if (m1 === "00") {
-    console.log(`${num[h]} o'clock ${pm_am}`);
     return `${num[h]} o'clock ${pm_am}`;
   }
   if (m1 === "01") {
-    console.log(`${num[h]} oh one ${pm_am}`);
     return `${num[h]} oh one ${pm_am}`;
   }
   if (m1 === "09") {
-    console.log(`${num[h]} oh nine ${pm_am}`);
     return `${num[h]} oh nine ${pm_am}`;
   }
 
-  console.log(`${num[h]} ${num[m]} ${pm_am}`);
   return `${num[h]} ${num[m]} ${pm_am}`;
 }
-
-timeWord("00:00");
-timeWord("00:12");
-timeWord("01:00");
-timeWord("06:01");
-timeWord("06:10");
-timeWord("06:18");
-timeWord("06:30");
-timeWord("10:34");
-timeWord("12:00");
-timeWord("12:09");
-timeWord("23:23");
 
 module.exports = timeWord;
