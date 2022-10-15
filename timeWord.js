@@ -26,7 +26,7 @@ Input	Expected Output
 // num[6] is six
 // num[59] is fifty-nine
 // Doing that makes the exersice easy
-// I iknow that this way dont scale over 59 bud the exercise is until 59 :)
+// I iknow that this way dont scale over 59 but the exercise is until 59 :)
 
 let num = [
   "zero",

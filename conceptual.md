@@ -117,4 +117,5 @@ Answer the following questions below:
 
 
 - Did you prefer using Flask over Express? Why or why not (there is no right
-  answer here --- we want to see how you think about technology)?
+  
+	I like software engineering and all that comes with it, flask and express are tools that we need to learn to stay on top of our game. But I will stay with Express do that I like Javascript more than Python and with the current market javascript for a web developer is probably better than Python. So I chose to master javascript, node.js, etc..., but if I get a job in another language or tool that I don't know I will master what the employer requires. 
