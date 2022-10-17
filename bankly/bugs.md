@@ -73,9 +73,24 @@ It should accept: {first_name, last_name, phone, email}
 
 	  let user = User.authenticate(username, password);
 
-- Solution: add await
+- Solution: adding await
 
 	  let user = await User.authenticate(username, password);
+
+### Error 6:
+
+#### DELETE/:username
+
+- Bug: Calling router.delete always return { message: "deleted" }, including the case that the user is not found and should return 404 
+
+      User.delete(req.params.username);
+
+- Solution adding await
+
+	  await User.delete(req.params.username);
+
+
+ 
 
 
 
