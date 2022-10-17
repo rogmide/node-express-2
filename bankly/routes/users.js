@@ -89,6 +89,8 @@ router.patch(
       delete fields._token;
 
       let user = await User.update(req.params.username, fields);
+      delete user.password;
+      delete user.admin;
       return res.json({ user });
     } catch (err) {
       return next(err);
