@@ -89,6 +89,18 @@ It should accept: {first_name, last_name, phone, email}
 
 	  await User.delete(req.params.username);
 
+### Error 7:
+
+#### auth.js middleware authUser function
+
+- Bug: The authUser function was decoding the token, this is bad because not take into consideration our secret key for proper validation  
+
+	  let payload = jwt.decode(token);
+
+- Solution correct validation added
+
+	  let payload = jwt.verify(token, SECRET_KEY);
+
 
  
 
