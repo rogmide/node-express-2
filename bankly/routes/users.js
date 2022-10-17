@@ -3,8 +3,10 @@
 const User = require("../models/user");
 const express = require("express");
 const router = new express.Router();
-const ExpressError = require("../helpers/expressError");
+const { ExpressError, BadRequestError } = require("../helpers/expressError");
 const { authUser, requireLogin, requireAdmin } = require("../middleware/auth");
+const jsonschema = require("jsonschema");
+const userUpdateSchema = require("../schemas/userUpdate.json");
 
 /** GET /
  *
@@ -77,7 +79,11 @@ router.patch(
         );
       }
 
-      // THERE IS ERROR ON THE FIELD IS ACEPTION EVERYTHING NEED TO ADD VALIDATION
+      const validator = jsonschema.validate(req.body, userUpdateSchema);
+      if (!validator.valid) {
+        const errs = validator.errors.map((e) => e.stack);
+        throw new BadRequestError(errs);
+      }
       // get fields to change; remove token so we don't try to change it
       let fields = { ...req.body };
       delete fields._token;
