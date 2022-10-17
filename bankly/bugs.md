@@ -21,8 +21,7 @@ PATCH/:username
 
 Only the user themselves or any admin user can use this.
 
-- Bug: was protecting the route with requireAdmin middleware this is unneeded inside the route there is a validation to ensure that the user is admin or is the owner user. And will stop any future request to this route if you have no Admin Access.
-
+- Bug: requireAdmin middleware  was protecting the route this is unneeded inside the route there is a validation to ensure that the user is admin or is the owner user. 
 
 	  router.patch('/:username', authUser, requireLogin, requireAdmin, async function(){}
 
@@ -36,3 +35,14 @@ Only the user themselves or any admin user can use this.
     	       throw new ExpressError('Only  that user or admin can edit a user.', 401);
    		  }
 
+### Error 3: 
+
+auth POST/:login
+
+- Bug: At the moment of authenticating the user, await was missing so was returning a promise
+
+	  let user = User.authenticate(username, password);
+
+- Solution: add await
+
+	  let user = await User.authenticate(username, password);

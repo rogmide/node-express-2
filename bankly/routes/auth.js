@@ -1,10 +1,10 @@
 /** Auth-related routes. */
 
-const User = require('../models/user');
-const express = require('express');
+const User = require("../models/user");
+const express = require("express");
 const router = express.Router();
-const createTokenForUser = require('../helpers/createToken');
-
+const createTokenForUser = require("../helpers/createToken");
+const { ClientBase } = require("pg");
 
 /** Register user; return token.
  *
@@ -14,10 +14,18 @@ const createTokenForUser = require('../helpers/createToken');
  *
  */
 
-router.post('/register', async function(req, res, next) {
+router.post("/register", async function (req, res, next) {
   try {
-    const { username, password, first_name, last_name, email, phone } = req.body;
-    let user = await User.register({username, password, first_name, last_name, email, phone});
+    const { username, password, first_name, last_name, email, phone } =
+      req.body;
+    let user = await User.register({
+      username,
+      password,
+      first_name,
+      last_name,
+      email,
+      phone,
+    });
     const token = createTokenForUser(username, user.admin);
     return res.status(201).json({ token });
   } catch (err) {
@@ -35,10 +43,10 @@ router.post('/register', async function(req, res, next) {
  *
  */
 
-router.post('/login', async function(req, res, next) {
+router.post("/login", async function (req, res, next) {
   try {
     const { username, password } = req.body;
-    let user = User.authenticate(username, password);
+    let user = await User.authenticate(username, password);
     const token = createTokenForUser(username, user.admin);
     return res.json({ token });
   } catch (err) {
