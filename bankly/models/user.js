@@ -112,9 +112,16 @@ class User {
 
     const user = result.rows[0];
 
+    // TESTS BUG #1
+    // if (!user) {
+    //   new ExpressError('No such user', 404);
+    // }
+
+    // FIXES BUG #1
     if (!user) {
       return new ExpressError('No such user', 404);
     }
+    // END BUG #2
 
     return user;
   }

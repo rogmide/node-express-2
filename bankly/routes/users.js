@@ -66,12 +66,19 @@ router.get(
  *
  */
 
+// TESTS BUG #2
+// router.patch("/:username", authUser, requireLogin, requireAdmin, async function (req, res, next) {} )
+
+// FIXES BUG #2
 router.patch(
   "/:username",
   authUser,
   requireLogin,
   async function (req, res, next) {
+    // END BUG #2
+
     try {
+      // FIXES BUG #2 part of BUG #2 Solution
       if (!req.curr_admin && req.curr_username !== req.params.username) {
         throw new ExpressError(
           "Only  that user or admin can edit a user.",
@@ -79,18 +86,31 @@ router.patch(
         );
       }
 
+      // TESTS BUG #3
+      //  No validation was accepting anything that the user send
+
+      // FIXES BUG #3
       const validator = jsonschema.validate(req.body, userUpdateSchema);
       if (!validator.valid) {
         const errs = validator.errors.map((e) => e.stack);
         throw new BadRequestError(errs);
       }
+      // END BUG #3
+
       // get fields to change; remove token so we don't try to change it
       let fields = { ...req.body };
       delete fields._token;
 
       let user = await User.update(req.params.username, fields);
+
+      // TESTS BUG #4
+      // Returning password and admin
+
+      // FIXES BUG #4
       delete user.password;
       delete user.admin;
+      // END BUG #4
+
       return res.json({ user });
     } catch (err) {
       return next(err);
@@ -114,7 +134,13 @@ router.delete(
   requireAdmin,
   async function (req, res, next) {
     try {
+      // TESTS BUG #6
+      // Calling router.delete always return { message: "deleted" },
+      // including the case that the user is not found and should return 404
+
+      // FIXES BUG #6
       await User.delete(req.params.username);
+      // END BUG #6
       return res.json({ message: "deleted" });
     } catch (err) {
       return next(err);

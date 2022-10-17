@@ -1,4 +1,4 @@
-### Error 1:
+### BUG 1:
 	
 #### GET/:username Route
 
@@ -15,7 +15,7 @@
 		return new ExpressError('No such user', 404);
       }
 	
-### Error 2:
+### BUG 2:
 	
 #### PATCH/:username
 
@@ -35,7 +35,7 @@ Only the user themselves or any admin user can use this.
     	       throw new ExpressError('Only  that user or admin can edit a user.', 401);
    		  }
 
-### Error 3: 
+### BUG 3: 
 
 #### PATCH/:username
 
@@ -52,7 +52,7 @@ It should accept: {first_name, last_name, phone, email}
         throw new BadRequestError(errs);
       }
 
-### Error 4: 
+### BUG 4: 
 
 #### PATCH/:username
 
@@ -65,7 +65,7 @@ It should accept: {first_name, last_name, phone, email}
       delete user.admin;
 	
 
-### Error 5: 
+### BUG 5: 
 
 #### auth POST/:login
 
@@ -77,7 +77,7 @@ It should accept: {first_name, last_name, phone, email}
 
 	  let user = await User.authenticate(username, password);
 
-### Error 6:
+### BUG 6:
 
 #### DELETE/:username
 
@@ -89,7 +89,7 @@ It should accept: {first_name, last_name, phone, email}
 
 	  await User.delete(req.params.username);
 
-### Error 7:
+### BUG 7:
 
 #### auth.js middleware authUser function
 
