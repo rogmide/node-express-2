@@ -114,7 +114,7 @@ router.delete(
   requireAdmin,
   async function (req, res, next) {
     try {
-      User.delete(req.params.username);
+      await User.delete(req.params.username);
       return res.json({ message: "deleted" });
     } catch (err) {
       return next(err);
