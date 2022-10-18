@@ -43,10 +43,10 @@ It should accept: {first_name, last_name, phone, email}
 
 - Bug: No validation was accepting anything that the user send 
 
-- Solution: Validation added using jsonschema, userUpdate.json created, userUpdateSchema use userUpdate.json for validation
+- Solution: Validation added using jsonschema, userUpdate.json created, userUpdateSchema use userUpdate.json for validation. If more property are send rise a error 
 
 
-	  const validator = jsonschema.validate(req.body, userUpdateSchema);
+	  const validator = jsonschema.validate(fields, userUpdateSchema);
       if (!validator.valid) {
         const errs = validator.errors.map((e) => e.stack);
         throw new BadRequestError(errs);

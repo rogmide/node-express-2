@@ -86,37 +86,24 @@ router.patch(
         );
       }
 
-      // TESTS BUG #3
-      //  No validation was accepting anything that the user send
+      // get fields to change; remove token so we don't try to change it
+      let fields = { ...req.body };
+      delete fields._token;
 
+      // TESTS BUG #3
+      // No validation was accepting anything that the user send
+      // Schema added to the app
       // FIXES BUG #3
-      const validator = jsonschema.validate(req.body, userUpdateSchema);
+      const validator = jsonschema.validate(fields, userUpdateSchema);
       if (!validator.valid) {
         const errs = validator.errors.map((e) => e.stack);
         throw new BadRequestError(errs);
       }
       // END BUG #3
 
-      // get fields to change; remove token so we don't try to change it
-      let fields = { ...req.body };
-      delete fields._token;
-
-      // FIXES BUG #3
-      // Admid field should not be updated and password
-      if (fields.admin || fields.password) {
-        throw new ExpressError(`Some fields can't be updated`, 401);
-      }
-
       let user = await User.update(req.params.username, fields);
       return res.json({ user });
     } catch (err) {
-      // console.log(err)
-      // FIXES BUG #3
-      // If the user send more fields that there is on user db,
-      // return a ExpressError
-      // code 42703 is of relation does not exist colum/s are missing
-      if (err.code === 42703)
-        return next(new ExpressError(`More fields that needed sended!`));
       return next(err);
     }
   }

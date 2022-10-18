@@ -40,6 +40,8 @@
             ]
         }
     },
+    "maxProperties": 5,
+    "additionalProperties": false,
     "examples": [{
         "first_name": "roger",
         "last_name": "mage",
