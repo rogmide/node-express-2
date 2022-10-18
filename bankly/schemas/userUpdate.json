@@ -5,7 +5,6 @@
     "default": {},
     "title": "Root Schema",
     "required": [
-
     ],
     "properties": {
         "first_name": {
@@ -41,9 +40,6 @@
             ]
         }
     },
-   
-    "minProperties": 0,
-    "maxProperties": 5,
     "examples": [{
         "first_name": "roger",
         "last_name": "mage",

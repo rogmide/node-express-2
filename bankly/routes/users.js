@@ -102,7 +102,7 @@ router.patch(
       delete fields._token;
 
       // FIXES BUG #3
-      // Admid field should not be updated
+      // Admid field should not be updated and password
       if (fields.admin || fields.password) {
         throw new ExpressError(`Some fields can't be updated`, 401);
       }
@@ -110,6 +110,13 @@ router.patch(
       let user = await User.update(req.params.username, fields);
       return res.json({ user });
     } catch (err) {
+      // console.log(err)
+      // FIXES BUG #3
+      // If the user send more fields that there is on user db,
+      // return a ExpressError
+      // code 42703 is of relation does not exist colum/s are missing
+      if (err.code === 42703)
+        return next(new ExpressError(`More fields that needed sended!`));
       return next(err);
     }
   }
