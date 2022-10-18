@@ -101,16 +101,13 @@ router.patch(
       let fields = { ...req.body };
       delete fields._token;
 
+      // FIXES BUG #3
+      // Admid field should not be updated
+      if (fields.admin || fields.password) {
+        throw new ExpressError(`Some fields can't be updated`, 401);
+      }
+
       let user = await User.update(req.params.username, fields);
-
-      // TESTS BUG #4
-      // Returning password and admin
-
-      // FIXES BUG #4
-      delete user.password;
-      delete user.admin;
-      // END BUG #4
-
       return res.json({ user });
     } catch (err) {
       return next(err);
@@ -134,13 +131,13 @@ router.delete(
   requireAdmin,
   async function (req, res, next) {
     try {
-      // TESTS BUG #6
+      // TESTS BUG #5
       // Calling router.delete always return { message: "deleted" },
       // including the case that the user is not found and should return 404
 
-      // FIXES BUG #6
+      // FIXES BUG #5
       await User.delete(req.params.username);
-      // END BUG #6
+      // END BUG #5
       return res.json({ message: "deleted" });
     } catch (err) {
       return next(err);

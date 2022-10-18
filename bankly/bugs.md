@@ -51,21 +51,9 @@ It should accept: {first_name, last_name, phone, email}
         const errs = validator.errors.map((e) => e.stack);
         throw new BadRequestError(errs);
       }
-
-### BUG 4: 
-
-#### PATCH/:username
-
-- Bug: The update is returning the password and if the user is admin I think that is not needed.
-
-- Solution: Delete those fields from the user
-
-      let user = await User.update(req.params.username, fields);
-      delete user.password;
-      delete user.admin;
 	
 
-### BUG 5: 
+### BUG 4: 
 
 #### auth POST/:login
 
@@ -77,7 +65,7 @@ It should accept: {first_name, last_name, phone, email}
 
 	  let user = await User.authenticate(username, password);
 
-### BUG 6:
+### BUG 5:
 
 #### DELETE/:username
 
@@ -89,7 +77,7 @@ It should accept: {first_name, last_name, phone, email}
 
 	  await User.delete(req.params.username);
 
-### BUG 7:
+### BUG 6:
 
 #### auth.js middleware authUser function
 
